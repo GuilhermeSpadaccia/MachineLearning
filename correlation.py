@@ -1,18 +1,24 @@
 from math import sqrt
+from numpy import genfromtxt
 
 '''
-coeficient of pearson
+Pearson Correlation Coefficient
 
-All information needed is:
-x
-y
-x**2
-y**2
-x*y
+For more informations about PCC: https://en.wikipedia.org/wiki/Pearson_correlation_coefficient
+
+The function pearson() expects a CSV file with 2 columns, separeted by coma, e.g:
+1,1
+1,2
+2,3
+3,5
+...
+
+
 '''
 
+def pearson(datasetFile):
+	dataset = genfromtxt(datasetFile, dtype=[('x','f8'),('y','f8')], delimiter=',')
 
-def pearson(dataset):
 	sumx  = 0
 	sumy  = 0
 	sumx2 = 0
@@ -29,29 +35,11 @@ def pearson(dataset):
 
 	r = (n*sumxy - sumx*sumy)/(sqrt(n*sumx2-(sumx**2))*sqrt(n*sumy2-(sumy**2)))
 
-	#print(sumx)
-	#print(sumy)
-	#print(sumx2)
-	#print(sumy2)
-	#print(sumxy)
-	#print(n)
-	print(r)
-
 	return(r)
 
 
-def pearsonTest():
-	dataset = [[1,5],
-           [2,12],
-           [3,16],
-           [4,22],
-           [5,34],
-           [6,38],
-           [7,41],
-           [8,45],
-           [9,50]]
-
-	r = pearson(dataset)
+def pearsonTestCase():
+	r = pearson('dataset.csv')
 	rexpected = 0.988650972613
 
 	if(abs(r - rexpected) < 0.0000001):
@@ -62,4 +50,5 @@ def pearsonTest():
 	print("Expected value: " + str(0.988650972613))
 	print("Recieved value: " + str(r))
 
-pearsonTest()
+
+pearsonTestCase()
