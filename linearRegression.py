@@ -1,13 +1,18 @@
+from numpy import genfromtxt
+import numpy as np
+import matplotlib.pyplot as plt
 
+def linearRegression(datasetFile, plot=False):
+	dataset = genfromtxt(datasetFile, dtype=[('x','f8'),('y','f8')], delimiter=',')
 
-def linearRegression(dataset):
 	sumx  = 0
 	sumy  = 0
 	sumx2 = 0
 	sumy2 = 0
 	sumxy = 0
-	#I use this 1.0 just to trigger the float calculation
-	#without it the result will be automaticly rounded
+	x = []
+	y = []
+
 	n = len(dataset)*1.0
 
 	for data in dataset:
@@ -16,6 +21,8 @@ def linearRegression(dataset):
 		sumx2 += data[0]**2
 		sumy2 += data[1]**2
 		sumxy += data[0]*data[1]
+		x.append(data[0])
+		y.append(data[1])
 
 	b = ((n*sumxy)-(sumx*sumy))/((n*sumx2)-(sumx**2))
 	mediumx = sumx/n
@@ -28,19 +35,26 @@ def linearRegression(dataset):
 
 	#valueY = a+b*valueX -> here I'll predict the values
 	#Example: print(a+b*3.5)
+	print(a+b*0)
+	print(a+b*9)
+
+	minResult = a+b*min(x)
+	maxResult = a+b*max(x)
+
+	if (plot):
+		plotRegression(x,y,minResult,maxResult,a)
 
 
-def linearRegressionTest():
-	dataset = [[1,5],
-	       [2,12],
-	       [3,16],
-	       [4,22],
-	       [5,34],
-	       [6,38],
-	       [7,41],
-	       [8,45],
-	       [9,50]]
+def plotRegression(x,y,minResult,maxResult,a):
+	fit = np.polyfit(x,y,1)
+	fit_fn = np.poly1d(fit) 
+	# fit_fn is now a function which takes in x and returns an estimate for y
 
-	linearRegression(dataset)
+	plt.plot(x,y, 'yo')
+	plt.plot([0,max(x)],[a,maxResult])
+	plt.xlim(0, max(x))
+	plt.ylim(0, max(y))
 
-linearRegressionTest()
+	plt.show()
+
+linearRegression('dataset2.csv', True)
