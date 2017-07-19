@@ -33,22 +33,17 @@ def linearRegression(datasetFile, plot=False):
 	print("Value of a: " + str(a))
 	print("Value of b: " + str(b))
 
-	#valueY = a+b*valueX -> here I'll predict the values
-	#Example: print(a+b*3.5)
-	print(a+b*0)
-	print(a+b*9)
-
 	minResult = a+b*min(x)
 	maxResult = a+b*max(x)
 
 	if (plot):
 		plotRegression(x,y,minResult,maxResult,a)
 
+	return (a, b, dataset)
 
 def plotRegression(x,y,minResult,maxResult,a):
 	fit = np.polyfit(x,y,1)
-	fit_fn = np.poly1d(fit) 
-	# fit_fn is now a function which takes in x and returns an estimate for y
+	fit_fn = np.poly1d(fit)
 
 	plt.plot(x,y, 'yo')
 	plt.plot([0,max(x)],[a,maxResult])

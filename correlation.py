@@ -1,20 +1,6 @@
 from math import sqrt
 from numpy import genfromtxt
 
-'''
-Pearson Correlation Coefficient
-
-For more informations about PCC: https://en.wikipedia.org/wiki/Pearson_correlation_coefficient
-
-The function pearson() expects a CSV file with 2 columns, separeted by coma, e.g:
-1,1
-1,2
-2,3
-3,5
-...
-
-
-'''
 
 def pearson(datasetFile):
 	dataset = genfromtxt(datasetFile, dtype=[('x','f8'),('y','f8')], delimiter=',')
