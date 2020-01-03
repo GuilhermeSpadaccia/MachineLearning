@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import operator
+from print_tree import print_tree
 
 tennis_df = pd.read_csv('tennis.csv')
 tennis_df
@@ -254,3 +255,5 @@ df_to_predict = pd.DataFrame([['rainy','mild','high',False]],
 probs, path = dt.predict(tree, df_to_predict)
 # print the result of the prediction
 print(probs)
+
+print_tree(tree)
